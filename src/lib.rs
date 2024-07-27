@@ -1,7 +1,11 @@
+use std::io::{self, Write};
+
 pub fn print_matches(keyword: &String, content: &String) {
+    let stdout = io::stdout(); // get the global stdout entity
+    let mut handle = io::BufWriter::new(stdout);
     for line in content.lines() {
         if line.contains(keyword) {
-            println!("{}", line);
+            writeln!(handle, "{}", line).expect("failed to write response");
         }
     }
 }
